@@ -1,11 +1,17 @@
 import styled from 'styled-components';
-import TelaInicial from './TelaInicial';
+import { useState } from 'react';
+
+import TelaInicial from './telaInicial/TelaInicial';
+import TelaPartida from './telaPartida/TelaPartida';
 
 export default function App(){
+    //State
+    const [partidaIniciada, setPartidaIniciada] = useState(false);
+
+    //render
     return (
         <Tela>
-            <TelaInicial />
-
+            {partidaIniciada ? <TelaPartida /> : <TelaInicial setPartidaIniciada={setPartidaIniciada}/>}
         </Tela>
     )
 }
@@ -18,4 +24,6 @@ const Tela = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    overflow-y: scroll;
 `;
