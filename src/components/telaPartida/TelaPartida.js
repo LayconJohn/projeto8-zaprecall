@@ -6,15 +6,24 @@ import {GiReturnArrow} from "react-icons/gi";
 
 function Flashcard( {index, flashcard} ) {
     //state
-    const [virado, setVirado] = useState(flashcard.virado)
+    const [virado, setVirado] = useState(flashcard.virado);
+    const [verificado, setVerificado] = useState(flashcard.verificado);
 
     //render
     return (
         <> 
             {virado ? 
             <FlashCardVirado>
-                <h5> {flashcard.pergunta} </h5>
-                <span> <GiReturnArrow /> </span>
+                <h5> {verificado ? flashcard.resposta : flashcard.pergunta} </h5>
+                { verificado ? 
+                <div>
+                    <BotaoResposta corDeFundo="#FF3030">Não lembrei</BotaoResposta>
+                    <BotaoResposta corDeFundo="#FF922E">Quase não lembrei</BotaoResposta>
+                    <BotaoResposta corDeFundo="#2FBE34">Zap!</BotaoResposta>
+                </div> 
+                :
+                <span onClick={() => setVerificado(true)}> <GiReturnArrow /> </span>
+                }
             </FlashCardVirado>
             :
             <FlashCard key={index} onClick={ () => setVirado(true)}>
@@ -47,49 +56,57 @@ export default function TelaPartida() {
                 virado: false,
                 pergunta: "O que é JSX?",
                 resposta: "Uma extensão de linguagem do JavaScript",
-                respondido: false, 
+                respondido: false,
+                verificado: false
             },
             {
                 virado: false,
                 pergunta: "O React é __ ",
                 resposta: "uma biblioteca JavaScript para construção de interfaces",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "Componentes devem iniciar com __",
                 resposta: "letra maiúscula",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "Podemos colocar __ dentro do JSX",
                 resposta: "expressões",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "O ReactDOM nos ajuda __",
                 resposta: "interagindo com a DOM para colocar componentes React na mesma",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "Usamos o npm para __",
                 resposta: "gerenciar os pacotes necessários e suas dependências",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "Usamos props para __",
                 resposta: "passar diferentes informações para componentes",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             },
             {
                 virado: false,
                 pergunta: "Usamos estado (state) para __",
                 resposta: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente",
-                respondido: false, 
+                respondido: false,
+                verificado: false 
             }
         ])
     }, []);
@@ -215,6 +232,21 @@ const FlashCardVirado = styled.div`
         font-weight: 400;
         font-size: 18px;
     }
+
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+`;
+
+const BotaoResposta = styled.div`
+    width: 85px;
+    height: 38px;
+    display: flex;
+    color: #FFF;
+    border-radius: 5px;
+    background-color: ${props => props.corDeFundo};
 `;
 
 const BarraInferior = styled.div`
