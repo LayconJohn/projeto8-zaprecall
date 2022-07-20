@@ -2,13 +2,28 @@ import styled from 'styled-components';
 import { useState, useEffect} from 'react';
 
 import { FiPlay } from "react-icons/fi";
+import {GiReturnArrow} from "react-icons/gi";
 
-function Flashcard( {index} ) {
+function Flashcard( {index, flashcard} ) {
+    //state
+    const [virado, setVirado] = useState(flashcard.virado)
+
+    //render
     return (
-        <FlashCard key={index}>
-            <h5> Pergunta {index + 1} </h5>
-            <FiPlay />
-        </FlashCard>
+        <> 
+            {virado ? 
+            <FlashCardVirado>
+                <h5> {flashcard.pergunta} </h5>
+                <span> <GiReturnArrow /> </span>
+            </FlashCardVirado>
+            :
+            <FlashCard key={index} onClick={ () => setVirado(true)}>
+                <h5> Pergunta {index + 1} </h5>
+                <FiPlay />
+            </FlashCard>
+            }        
+        </>
+        
     )
 }
 
@@ -16,60 +31,73 @@ export default function TelaPartida() {
     //State
     const [flashcards, setFlashcards] = useState([]);
 
+    function misturarFlashcards(flashcards) {
+        const flashcardsEmbaralhados = [...flashcards]
+        for (let i = flashcards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [flashcardsEmbaralhados[i], flashcardsEmbaralhados[j]] = [flashcardsEmbaralhados[j], flashcardsEmbaralhados[i]];
+        }
+        return flashcardsEmbaralhados;
+    }
+
     //logic
     useEffect( () => {
         setFlashcards( [
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "O que é JSX?",
+                resposta: "Uma extensão de linguagem do JavaScript",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "O React é __ ",
+                resposta: "uma biblioteca JavaScript para construção de interfaces",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "Componentes devem iniciar com __",
+                resposta: "letra maiúscula",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "Podemos colocar __ dentro do JSX",
+                resposta: "expressões",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "O ReactDOM nos ajuda __",
+                resposta: "interagindo com a DOM para colocar componentes React na mesma",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "Usamos o npm para __",
+                resposta: "gerenciar os pacotes necessários e suas dependências",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "Usamos props para __",
+                resposta: "passar diferentes informações para componentes",
                 respondido: false, 
             },
             {
                 virado: false,
-                pergunta: "",
-                resposta: "",
+                pergunta: "Usamos estado (state) para __",
+                resposta: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente",
                 respondido: false, 
             }
         ])
     }, []);
 
+    //console.log("Array original:")
+    //console.log(flashcards)
+    //console.log("Array embaralhado")
+    //console.log(misturarFlashcards(flashcards))
 
     //render
     return (
@@ -79,8 +107,8 @@ export default function TelaPartida() {
                 <h2>ZapRecall</h2>
             </Logo>
             <Deck>
-                {flashcards.map( (flashcard, index) => 
-                     <Flashcard index={index}/>
+                {misturarFlashcards(flashcards).map( (flashcard, index) => 
+                     <Flashcard index={index} flashcard={flashcard}/>
                 )}
             </Deck>
             <BarraInferior>
@@ -145,6 +173,47 @@ const FlashCard = styled.div`
         font-family: 'Recursive', sans-serif;
         font-weight: 700;
         font-size: 19px;
+    }
+`;
+
+const FlashCardVirado = styled.div`
+    width:300px;
+    min-height: 131px;
+    box-shadow: 0px, 4px rgba(0, 0, 0, 0.15);
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    color: #333333;
+    scale: 0.9;
+    transition: all ease 0.4s;
+    position: relative;
+    padding-top: 18px;
+    padding-left: 15px;
+
+    &:hover {
+        scale: 0.95;
+    }
+
+    span {
+        position: absolute;
+        right: 6px;
+        bottom: 5px;
+        scale: 0.9;
+    }
+
+    span:hover {
+        scale: 1
+    }
+
+    span:active {
+        transform: translateY(1px);
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap');
+
+    h5 {
+        font-family: 'Recursive', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
     }
 `;
 
