@@ -10,9 +10,11 @@ padding: 0px 15px;
 box-shadow: 0px, 4px rgba(0, 0, 0, 0.15);
 background-color: #FFFFFF;
 border-radius: 5px;
-color: #333333;
+color: ${props => props.corDoTexto};
 scale: 0.8;
 transition: all ease 0.4s;
+text-decoration: ${props => props.finalizado ? "line-through" : "inherit"};
+
 
 &:hover {
     scale: 0.9;
