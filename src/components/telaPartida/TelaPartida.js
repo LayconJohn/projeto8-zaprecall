@@ -205,6 +205,9 @@ const FlashCardVirado = styled.div`
     position: relative;
     padding-top: 18px;
     padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &:hover {
         scale: 0.95;
@@ -247,6 +250,21 @@ const BotaoResposta = styled.div`
     color: #FFF;
     border-radius: 5px;
     background-color: ${props => props.corDeFundo};
+    margin: 0px 6px 8px 0px;
+    scale: 0.95;
+    transition: all ease 0.3s;
+    text-shadow: 1px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+
+    &:hover {
+        scale: 1;
+        opacity: 0.8;
+        text-shadow: 1px rgba(0, 0, 0, 1);
+    }
+
+    &:active {
+        transform: translate3d(1px, 1px, 1px);
+    }
 `;
 
 const BarraInferior = styled.div`
