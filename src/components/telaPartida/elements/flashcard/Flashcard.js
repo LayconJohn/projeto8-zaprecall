@@ -7,7 +7,7 @@ import {BsFillQuestionCircleFill, BsCheckCircleFill} from 'react-icons/bs';
 
 import {FlashCard, FlashCardVirado, BotaoResposta} from './styledFlashcard';
 
-export default function Flashcard( {index, flashcard} ) {
+export default function Flashcard( {index, flashcard, setPerguntasConcluidas, perguntasConcluidas, iconesRespondidos, setIconesRespondidos } ) {
     //state
     const [virado, setVirado] = useState(flashcard.virado);
     const [verificado, setVerificado] = useState(flashcard.verificado);
@@ -24,10 +24,12 @@ export default function Flashcard( {index, flashcard} ) {
         ])
     }, [])
 
-    function finalizarRecallCard(botao) {
-        setIconeCard(botao.icon)
-        setResultadoCard(botao.cor)
+    function finalizarRecallCard(botao, perguntasConcluidas) {
+        setIconeCard(botao.icon);
+        setResultadoCard(botao.cor);
         setVirado(false);
+        setPerguntasConcluidas(perguntasConcluidas + 1);
+        setIconesRespondidos([...iconesRespondidos, {icone: botao.icon, cor: botao.cor}]);
     }
 
     function virarCard() {
@@ -44,7 +46,7 @@ export default function Flashcard( {index, flashcard} ) {
                 <h5> {verificado ? flashcard.resposta : flashcard.pergunta} </h5>
                 { verificado ? 
                 <div>
-                    {botoesResposta.map((botao, index) => <BotaoResposta key={index} corDeFundo={botao.cor} onClick={() => finalizarRecallCard(botao)}>{botao.texto}</BotaoResposta>)}
+                    {botoesResposta.map((botao, index) => <BotaoResposta key={index} corDeFundo={botao.cor} onClick={() => finalizarRecallCard(botao, perguntasConcluidas)}>{botao.texto}</BotaoResposta>)}
                 </div> 
                 :
                 <span onClick={() => setVerificado(true)}> <GiReturnArrow /> </span>

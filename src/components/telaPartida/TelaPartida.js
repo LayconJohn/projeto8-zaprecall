@@ -5,6 +5,8 @@ import Flashcard from './elements/flashcard/Flashcard';
 export default function TelaPartida() {
     //State
     const [flashcards, setFlashcards] = useState([]);
+    const [perguntasConcluidas, setPerguntasConcluidas] = useState(0);
+    const [iconesRespondidos, setIconesRespondidos] = useState([]);
 
     function misturarFlashcards(flashcards) {
         const flashcardsEmbaralhados = [...flashcards]
@@ -77,11 +79,6 @@ export default function TelaPartida() {
         ])
     }, []);
 
-    //console.log("Array original:")
-    //console.log(flashcards)
-    //console.log("Array embaralhado")
-    //console.log(misturarFlashcards(flashcards))
-
     //render
     return (
         <>
@@ -91,11 +88,19 @@ export default function TelaPartida() {
             </Logo>
             <Deck>
                 {misturarFlashcards(flashcards).map( (flashcard, index) => 
-                     <Flashcard index={index} flashcard={flashcard}/>
+                     <Flashcard 
+                        index={index} 
+                        flashcard={flashcard}
+                        setPerguntasConcluidas={setPerguntasConcluidas}
+                        perguntasConcluidas={perguntasConcluidas}
+                        iconesRespondidos={iconesRespondidos}
+                        setIconesRespondidos={setIconesRespondidos}
+                    />
                 )}
             </Deck>
             <BarraInferior>
-                <h6> 0/4 concluídos </h6>
+                <h6> {`${perguntasConcluidas} de ${flashcards.length}`} concluídos </h6>
+                <div>{iconesRespondidos.map(icone => <IconeInferior corIcone={icone.cor}>{icone.icone}</IconeInferior>)}</div>
             </BarraInferior>
         </>
     )
@@ -139,10 +144,12 @@ const BarraInferior = styled.div`
     left: 0;
     right: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 130px;
     z-index: 1;
+    padding-bottom: 10px;
 
     @import url('https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap');
 
@@ -150,5 +157,14 @@ const BarraInferior = styled.div`
         font-family: 'Recursive', sans-serif;
         font-weight: 400;
         font-size: 18px;
+        margin: 0;
     }
+
+    div {
+        display: flex;
+    }
+`;
+
+const IconeInferior = styled.div`
+    color: ${props => props.corIcone};
 `;
