@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { useState, useEffect} from 'react';
+
 import Flashcard from './elements/flashcard/Flashcard';
+import Footer from './elements/footer/Footer';
+
+
 
 export default function TelaPartida() {
     //State
@@ -98,10 +102,11 @@ export default function TelaPartida() {
                     />
                 )}
             </Deck>
-            <BarraInferior>
+            <Footer perguntasConcluidas={perguntasConcluidas} flashcards={flashcards} iconesRespondidos={iconesRespondidos}>
+                
                 <h6> {`${perguntasConcluidas} de ${flashcards.length}`} concluídos </h6>
                 <div>{iconesRespondidos.map(icone => <IconeInferior corIcone={icone.cor}>{icone.icone}</IconeInferior>)}</div>
-            </BarraInferior>
+            </Footer>
         </>
     )
 }
@@ -133,38 +138,7 @@ const Deck = styled.div`
     overflow-y: scroll;
 `;
 
-
-
-const BarraInferior = styled.div`
-    width: 100%;
-    min-height: 70px;
-    background-color: #FFF;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 130px;
-    z-index: 1;
-    padding-bottom: 10px;
-
-    @import url('https://fonts.googleapis.com/css2?family=Recursive:wght@400;700&display=swap');
-
-    h6 {
-        font-family: 'Recursive', sans-serif;
-        font-weight: 400;
-        font-size: 18px;
-        margin: 0;
-    }
-
-    div {
-        display: flex;
-    }
-`;
-
 const IconeInferior = styled.div`
     color: ${props => props.corIcone};
 `;
+
