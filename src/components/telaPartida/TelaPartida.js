@@ -7,7 +7,7 @@ import Footer from './elements/footer/Footer';
 
 
 
-export default function TelaPartida() {
+export default function TelaPartida( {deck, cardsDeck}) {
     //State
     const [flashcards, setFlashcards] = useState([]);
     const [perguntasConcluidas, setPerguntasConcluidas] = useState(0);
@@ -23,65 +23,16 @@ export default function TelaPartida() {
     }
 
     //logic
+
+
     useEffect( () => {
-        setFlashcards( [
-            {
-                virado: false,
-                pergunta: "O que é JSX?",
-                resposta: "Uma extensão de linguagem do JavaScript",
-                respondido: false,
-                verificado: false
-            },
-            {
-                virado: false,
-                pergunta: "O React é __ ",
-                resposta: "uma biblioteca JavaScript para construção de interfaces",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "Componentes devem iniciar com __",
-                resposta: "letra maiúscula",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "Podemos colocar __ dentro do JSX",
-                resposta: "expressões",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "O ReactDOM nos ajuda __",
-                resposta: "interagindo com a DOM para colocar componentes React na mesma",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "Usamos o npm para __",
-                resposta: "gerenciar os pacotes necessários e suas dependências",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "Usamos props para __",
-                resposta: "passar diferentes informações para componentes",
-                respondido: false,
-                verificado: false 
-            },
-            {
-                virado: false,
-                pergunta: "Usamos estado (state) para __",
-                resposta: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente",
-                respondido: false,
-                verificado: false 
-            }
-        ])
+        console.log(deck);
+
+        if (deck === "React") {
+            setFlashcards(cardsDeck[0]);
+        } else if (deck === "Harry Potter") {
+            setFlashcards(cardsDeck[1]);
+        }
     }, []);
 
     //render

@@ -37,4 +37,10 @@ const BotaoIniciar = styled.div `
 
 `;
 
-export {LogoInicial, TextoLogo, BotaoIniciar};
+const EscolherDeck = styled.select`
+    width: 246px;
+    height: 43px;
+    border-radius: 5px;
+`;
+
+export {LogoInicial, TextoLogo, BotaoIniciar, EscolherDeck};
