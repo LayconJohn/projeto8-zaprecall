@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { useState, useEffect} from 'react';
+
+import {Logo, Deck, IconeInferior} from './styledTelaPartida';
 
 import Flashcard from './elements/flashcard/Flashcard';
 import Footer from './elements/footer/Footer';
@@ -110,35 +111,4 @@ export default function TelaPartida() {
         </>
     )
 }
-
-const Logo = styled.div`
-    display: flex;
-    align-items: center;
-    position: fixed;
-    top: 48px;
-
-    @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-
-
-    img {
-        width: 52px;
-        height: 60px;
-    }
-
-    h2 {
-        font-family: 'Righteous', cursive;
-        font-size: 36px;
-        font-weight: bold;
-        color: #FFFFFF;
-    }
-`;
-
-const Deck = styled.div`
-    margin: 170px auto 120px auto;
-    overflow-y: scroll;
-`;
-
-const IconeInferior = styled.div`
-    color: ${props => props.corIcone};
-`;
 
